@@ -14,16 +14,21 @@
   align-items: center;
   justify-content: center;
   background: #87CEEB;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .game-container {
-  width: 800px;
-  height: 600px;
+  width: min(800px, 90vw);
+  height: min(600px, 67.5vw);
+  max-width: 800px;
+  max-height: 600px;
   position: relative;
   overflow: hidden;
   border: 2px solid #2c3e50;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 4/3;
 }
 
 .beach-background {
@@ -767,9 +772,15 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .game-container {
+    width: 95vw;
+    height: 71.25vw; /* 4:3 aspect ratio */
+    max-height: 90vh;
+  }
+  
   .player {
     width: 60px;
-    height: 60px;
+    height: 40px;
   }
   
   .obstacle {
@@ -810,5 +821,71 @@
   .score-display h1 {
     font-size: 2rem;
     letter-spacing: 1px;
+  }
+}
+
+/* Additional responsive design for better mobile experience */
+@media (max-width: 480px) {
+  .game-container {
+    width: 98vw;
+    height: 73.5vw; /* 4:3 aspect ratio */
+    max-height: 85vh;
+  }
+  
+  .player {
+    width: 50px;
+    height: 35px;
+  }
+  
+  .score-display h1 {
+    font-size: 1rem;
+  }
+  
+  .timer-text {
+    font-size: 1rem;
+  }
+  
+  .instructions p {
+    font-size: 0.8rem;
+  }
+  
+  .leaderboard-button {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-height: 600px) {
+  .game-container {
+    height: 90vh;
+    width: 120vh; /* Maintain 4:3 aspect ratio */
+    max-width: 90vw;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (orientation: landscape) and (max-height: 500px) {
+  .game-container {
+    height: 95vh;
+    width: 126.67vh; /* 4:3 aspect ratio */
+    max-width: 95vw;
+  }
+  
+  .score-display {
+    top: 5px;
+    left: 5px;
+    padding: 4px 8px;
+  }
+  
+  .timer-display {
+    top: 5px;
+    right: 5px;
+    padding: 4px 8px;
+  }
+  
+  .instructions {
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
   }
 }

@@ -21,9 +21,13 @@ interface Obstacle {
 }
 
 function App() {
-  // Calculate water height for 600px game height (20% of 600px = 120px)
+  // Calculate water height dynamically based on game container height
   const getWaterHeight = () => {
-    return 120
+    const gameContainer = document.querySelector('.game-container') as HTMLElement
+    if (gameContainer) {
+      return Math.floor(gameContainer.offsetHeight * 0.2)
+    }
+    return 120 // fallback
   }
 
   const [player, setPlayer] = useState<PlayerState>({
@@ -37,7 +41,9 @@ function App() {
   const [obstacleIdCounter, setObstacleIdCounter] = useState(0)
   const [gameOver, setGameOver] = useState(false)
   const [score, setScore] = useState(0)
-  const [waterHeight] = useState(getWaterHeight())
+  const [waterHeight, setWaterHeight] = useState(getWaterHeight())
+  const [gameWidth, setGameWidth] = useState(800)
+  const [gameHeight, setGameHeight] = useState(600)
   const [timeRemaining, setTimeRemaining] = useState(180) // 3 minutes in seconds
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [showScoreSubmission, setShowScoreSubmission] = useState(false)
@@ -49,7 +55,39 @@ function App() {
   const lastObstacleSpawn = useRef<number>(Date.now())
   const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
-  // Fixed size game - no resize handling needed
+  // Handle dynamic sizing for responsive design
+  useEffect(() => {
+    const updateDimensions = () => {
+      const gameContainer = document.querySelector('.game-container') as HTMLElement
+      if (gameContainer) {
+        const newWidth = gameContainer.offsetWidth
+        const newHeight = gameContainer.offsetHeight
+        const newWaterHeight = Math.floor(newHeight * 0.2)
+        
+        setGameWidth(newWidth)
+        setGameHeight(newHeight)
+        setWaterHeight(newWaterHeight)
+        
+        // Update player position if game is not over
+        if (!gameOver) {
+          setPlayer(prev => ({
+            ...prev,
+            position: { ...prev.position, y: newWaterHeight }
+          }))
+        }
+      }
+    }
+
+    // Update dimensions on mount and resize
+    updateDimensions()
+    window.addEventListener('resize', updateDimensions)
+    window.addEventListener('orientationchange', updateDimensions)
+    
+    return () => {
+      window.removeEventListener('resize', updateDimensions)
+      window.removeEventListener('orientationchange', updateDimensions)
+    }
+  }, [gameOver])
 
   // Handle jump
   const handleJump = () => {
@@ -100,7 +138,7 @@ function App() {
       const newObstacle: Obstacle = {
         id: obstacleIdCounter,
         type: obstacleType,
-        position: { x: 800 + 50, y: spawnY }, // Spawn off the right edge of 800px game
+        position: { x: gameWidth + 50, y: spawnY }, // Spawn off the right edge of game
         speed: obstacleType === 'bird' ? 2 : 3, // Birds fly slightly slower than sharks
         swimPhase: obstacleType === 'shark' ? Math.random() * Math.PI * 2 : undefined // Random starting phase for shark swimming
       }
