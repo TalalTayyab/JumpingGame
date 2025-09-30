@@ -444,12 +444,11 @@ function App() {
 
 
         <div className="instructions">
-          <p>Touch the screen to jump!</p>
           <button 
             onClick={() => setShowLeaderboard(true)}
             className="leaderboard-button"
           >
-            🏆 Leaderboard
+            🏆
           </button>
         </div>
 

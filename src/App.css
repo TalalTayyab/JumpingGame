@@ -422,34 +422,30 @@
 
 .instructions {
   position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
+  bottom: 20px;
+  left: 20px;
   z-index: 10;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
 }
 
 .leaderboard-button {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1e3c72;
   border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .leaderboard-button:hover {
@@ -593,11 +589,11 @@
   top: 20px;
   left: 20px;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: 2px solid #4682B4;
-  box-shadow: 0 0 10px rgba(70, 130, 180, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #2c3e50;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.3);
 }
 
 /* Timer Display */
@@ -757,16 +753,14 @@
 
 .score-display h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #87CEEB;
+  color: #2c3e50;
   text-shadow: 
-    0 0 10px #87CEEB,
-    0 0 20px #87CEEB,
-    2px 2px 4px rgba(0, 0, 0, 0.8);
-  font-family: 'Arial Black', Arial, sans-serif;
-  letter-spacing: 2px;
-  animation: timer-pulse 1s ease-in-out infinite alternate;
+    0 0 5px rgba(44, 62, 80, 0.5),
+    1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 1px;
 }
 
 
